@@ -18,9 +18,31 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronDown, ChevronUp, ArrowUpDown, CreditCard, ShoppingCart, Home, Coffee, Car } from "lucide-react";
+import { 
+  Search, 
+  ChevronDown, 
+  ChevronUp, 
+  ArrowUpDown, 
+  Home, 
+  CreditCard, 
+  ShoppingCart, 
+  Droplet, 
+  Tv, 
+  Fuel, 
+  Music, 
+  DollarSign,
+  Wifi,
+  Bike,
+  Smartphone,
+  Utensils,
+  Medical,
+  Plane,
+  Gamepad2,
+  GraduationCap,
+  Scissors
+} from "lucide-react";
 
-// Mock transaction data
+// Enhanced transaction data with more realistic expenses and better category mapping
 const transactions = [
   {
     id: "t1",
@@ -36,7 +58,7 @@ const transactions = [
     description: "Salary Deposit",
     category: "Income",
     amount: 5000,
-    icon: CreditCard,
+    icon: DollarSign,
   },
   {
     id: "t3",
@@ -49,10 +71,10 @@ const transactions = [
   {
     id: "t4",
     date: "2023-06-04",
-    description: "Coffee Shop",
-    category: "Dining",
-    amount: -5.25,
-    icon: Coffee,
+    description: "Netflix Subscription",
+    category: "Entertainment",
+    amount: -15.99,
+    icon: Tv,
   },
   {
     id: "t5",
@@ -60,7 +82,7 @@ const transactions = [
     description: "Gas Station",
     category: "Transport",
     amount: -45.80,
-    icon: Car,
+    icon: Fuel,
   },
   {
     id: "t6",
@@ -69,6 +91,38 @@ const transactions = [
     category: "Income",
     amount: 950,
     icon: CreditCard,
+  },
+  {
+    id: "t7",
+    date: "2023-06-06",
+    description: "Water Bill",
+    category: "Utilities",
+    amount: -78.50,
+    icon: Droplet,
+  },
+  {
+    id: "t8",
+    date: "2023-06-07",
+    description: "Spotify Premium",
+    category: "Entertainment",
+    amount: -9.99,
+    icon: Music,
+  },
+  {
+    id: "t9",
+    date: "2023-06-08",
+    description: "Internet Bill",
+    category: "Utilities",
+    amount: -65.00,
+    icon: Wifi,
+  },
+  {
+    id: "t10",
+    date: "2023-06-09",
+    description: "Bicycle Repair",
+    category: "Transport",
+    amount: -89.99,
+    icon: Bike,
   },
 ];
 
@@ -148,6 +202,24 @@ export function TransactionList() {
     }).format(date);
   };
 
+  // Get category color
+  const getCategoryColor = (category: string) => {
+    switch(category.toLowerCase()) {
+      case 'income':
+        return 'bg-finance-income/10 text-finance-income border-finance-income/20';
+      case 'housing':
+      case 'utilities':
+        return 'bg-finance-expense/10 text-finance-expense border-finance-expense/20';
+      case 'entertainment':
+      case 'food':
+        return 'bg-primary/10 text-primary border-primary/20';
+      case 'transport':
+        return 'bg-finance-savings/10 text-finance-savings border-finance-savings/20';
+      default:
+        return 'bg-finance-investment/10 text-finance-investment border-finance-investment/20';
+    }
+  };
+
   return (
     <Card className="glass-card">
       <CardHeader className="pb-2">
@@ -224,7 +296,7 @@ export function TransactionList() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="font-normal">
+                      <Badge variant="outline" className={`font-normal ${getCategoryColor(transaction.category)}`}>
                         {transaction.category}
                       </Badge>
                     </TableCell>

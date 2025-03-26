@@ -1,7 +1,14 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CircleDollarSign, TrendingUp, ArrowUpRight, ArrowDownRight, PiggyBank, CreditCard } from "lucide-react";
+import { 
+  CircleDollarSign, 
+  TrendingUp, 
+  ArrowUpRight, 
+  ArrowDownRight, 
+  PiggyBank, 
+  CreditCard 
+} from "lucide-react";
 import { ChartSection } from "@/components/ChartSection";
 import { TransactionList } from "@/components/TransactionList";
 import { AIAdvisor } from "@/components/AIAdvisor";
@@ -61,7 +68,10 @@ export function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
               <div className="flex items-center text-xs text-muted-foreground mt-1">
-                <Badge variant={stat.trend === "up" ? "default" : "destructive"} className="mr-1 px-1 py-0 h-auto">
+                <Badge 
+                  variant={stat.trend === "up" ? "default" : "destructive"} 
+                  className="mr-1 px-1 py-0 h-auto"
+                >
                   {stat.trend === "up" ? (
                     <ArrowUpRight className="w-3 h-3 mr-1" />
                   ) : (
