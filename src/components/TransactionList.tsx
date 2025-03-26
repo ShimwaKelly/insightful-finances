@@ -35,7 +35,7 @@ import {
   Bike,
   Smartphone,
   Utensils,
-  Medical,
+  HeartPulse,
   Plane,
   Gamepad2,
   GraduationCap,
