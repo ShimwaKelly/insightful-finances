@@ -6,6 +6,13 @@ import { ProfileButton } from "@/components/ui/ProfileButton";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { 
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle
+} from "@/components/ui/navigation-menu";
+import { 
   LayoutDashboard, 
   Receipt, 
   PieChart, 
@@ -15,6 +22,7 @@ import {
   X
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 export function Navbar() {
@@ -48,26 +56,31 @@ export function Navbar() {
               </div>
             </div>
           </div>
-          <Link to="/">
-            <span className="font-bold text-xl tracking-tight">InsightFinance</span>
+          <Link to="/" className="font-bold text-xl tracking-tight hover:text-primary transition-colors">
+            InsightFinance
           </Link>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-2">
-          {navItems.map((item) => (
-            <Button
-              key={item.path}
-              variant={isActive(item.path) ? "default" : "ghost"}
-              asChild
-              className="gap-2"
-            >
-              <Link to={item.path}>
-                <item.icon className="h-4 w-4" />
-                {item.name}
-              </Link>
-            </Button>
-          ))}
-        </nav>
+        <NavigationMenu className="hidden md:flex mx-auto">
+          <NavigationMenuList>
+            {navItems.map((item) => (
+              <NavigationMenuItem key={item.path}>
+                <Link to={item.path}>
+                  <NavigationMenuLink 
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      isActive(item.path) ? "bg-primary/10 text-primary" : "",
+                      "gap-2"
+                    )}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.name}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
         
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -75,17 +88,17 @@ export function Navbar() {
             <ProfileButton />
           ) : (
             <AuthModal>
-              <Button variant="default">Sign In</Button>
+              <Button variant="default" size="sm" className="hidden md:flex">Sign In</Button>
             </AuthModal>
           )}
           
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-64 sm:w-80">
+            <SheetContent side="right" className="w-64 sm:w-80 border-l glass glass-dark">
               <div className="flex flex-col h-full">
                 <div className="py-6">
                   <div className="flex items-center gap-2 mb-6">
